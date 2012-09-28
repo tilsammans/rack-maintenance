@@ -3,6 +3,8 @@
 Rack::Maintenance is a simple Rack middleware to detect the existence of a
 maintenance.html page and display that instead of incoming requests.
 
+{<img src="https://secure.travis-ci.org/tilsammans/rack-maintenance.png" />}[http://travis-ci.org/tilsammans/rack-maintenance]
+
 == Installation
 
  sudo gem install rack-maintenance

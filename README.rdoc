@@ -18,11 +18,23 @@ In Gemfile:
 and then run `bundle`.
 
 == Usage
+ For Rails web applications
 
- # config/environment.rb
+ # config/application.rb
  config.middleware.use 'Rack::Maintenance',
    :file => Rails.root.join('public', 'maintenance.html'),
-   :env  => 'MAINTENANCE'
+   :env  => 'MAINTENANCE',
+   :signal_file => Rails.root.join('tmp', 'maintenance.txt')
+
+ For Sinatra and Padrino and GRAPE web applications
+
+ # config.ru
+ require 'rack-maintenance'
+ use Rack::Maintenance,
+   :file=>File.join("config", "maintenance.yaml"),
+   :env=>nil,
+   :format => "json",
+   :signal_file => File.join('tmp', 'maintenance.txt')
 
 If <tt>:env</tt> is specified, all requests will be shown the
 maintenance page if the environment variable is set.

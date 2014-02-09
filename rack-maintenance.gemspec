@@ -16,5 +16,6 @@ Gem::Specification.new do |s|
   s.test_files    = Dir["spec/**/*"]
 
   s.add_dependency              "rack", ">= 1.0"
+  s.add_dependency              "json", ">= 1.0.0"
   s.add_development_dependency  "rspec", ">= 2.0"
 end

@@ -1,7 +1,7 @@
 = rack-maintenance
 
 Rack::Maintenance is a simple Rack middleware to detect the existence of a
-maintenance.html page and display that instead of incoming requests.
+maintenance page and display that instead of incoming requests.
 
 {<img src="https://secure.travis-ci.org/tilsammans/rack-maintenance.png" />}[http://travis-ci.org/tilsammans/rack-maintenance]
 
@@ -19,9 +19,15 @@ and then run `bundle`.
 
 == Usage
 
- # config/environment.rb
+ # html maintenance response
  config.middleware.use 'Rack::Maintenance',
    :file => Rails.root.join('public', 'maintenance.html'),
+   :env  => 'MAINTENANCE'
+
+ # json maintenance response
+ # it's up to you to provide a valid JSON file!
+ config.middleware.use 'Rack::Maintenance',
+   :file => Rails.root.join('public', 'maintenance.json'),
    :env  => 'MAINTENANCE'
 
 If <tt>:env</tt> is specified, all requests will be shown the
@@ -32,12 +38,12 @@ If <tt>:env</tt> is not specified, the maintenance page will be shown if it exis
 == Note on Patches/Pull Requests
 
 * Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
+* Make your feature addition or bug fix in a branch.
+* Add tests for it.
 * Commit, do not mess with Rakefile or VERSION (do that in a separate commit if you want a local version)
-* Send me a pull request. Bonus points for topic branches.
+* Push your branch.
+* Send me a pull request.
 
-== Copyright
+== License
 
-Copyright (c) 2009 David Dollar. See LICENSE for details.
+BSD. See LICENSE for details.

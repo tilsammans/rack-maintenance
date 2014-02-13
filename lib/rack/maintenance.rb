@@ -14,13 +14,17 @@ class Rack::Maintenance
   def call(env)
     if maintenance? && path_in_app(env)
       data = File.read(file)
-      [ 503, { 'Content-Type' => 'text/html', 'Content-Length' => data.length.to_s }, [data] ]
+      [ 503, { 'Content-Type' => content_type, 'Content-Length' => data.length.to_s }, [data] ]
     else
       app.call(env)
     end
   end
 
 private ######################################################################
+
+  def content_type
+    file.end_with?('json') ? 'application/json' : 'text/html'
+  end
 
   def environment
     options[:env]

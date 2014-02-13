@@ -19,10 +19,18 @@ and then run `bundle`.
 
 == Usage
 
+For Rails web applications
+
  # config/environment.rb
  config.middleware.use 'Rack::Maintenance',
    :file => Rails.root.join('public', 'maintenance.html'),
    :env  => 'MAINTENANCE'
+
+For Sinatra and padrino web applications
+ 
+ # config.ru
+ require 'rack-maintenance'
+ use Rack::Maintenance, {:file=>File.join("public", "maintenance.html"), :env=>nil}
 
 If <tt>:env</tt> is specified, all requests will be shown the
 maintenance page if the environment variable is set.

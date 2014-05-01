@@ -78,6 +78,11 @@ describe "RackMaintenance with json maintenance file" do
     let(:file_name) { "spec/maintenance.json" }
     let(:content_type) { "application/json" }
   end
+
+  it_behaves_like "RackMaintenance" do
+    let(:file_name) { Pathname.new("spec/maintenance.json") }
+    let(:content_type) { "application/json" }
+  end
 end
 
 describe "RackMaintenance with html maintenance file" do

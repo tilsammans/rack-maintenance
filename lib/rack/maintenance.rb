@@ -23,7 +23,7 @@ class Rack::Maintenance
 private ######################################################################
 
   def content_type
-    file.end_with?('json') ? 'application/json' : 'text/html'
+    file.to_s.end_with?('json') ? 'application/json' : 'text/html'
   end
 
   def environment

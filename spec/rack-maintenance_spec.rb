@@ -70,6 +70,18 @@ shared_examples "RackMaintenance" do
         rack.call({"PATH_INFO"=>"/assets/application.css"})
       end
     end
+
+    context "and :paths option" do
+      let(:rack) { Rack::Maintenance.new(app, :file => file_name, :paths => %r{^/admin}) }
+
+      it "enables access depending on filter" do
+        app.should_receive(:call).twice
+        rack.call({"PATH_INFO" => "/"})
+        rack.call({"PATH_INFO" => "/admin"})
+        rack.call({"PATH_INFO" => "/users"})
+        rack.call({"PATH_INFO" => "/admin/users"})
+      end
+    end
   end
 end
 

@@ -39,7 +39,13 @@ private ######################################################################
   end
 
   def path_in_app(env)
-    env["PATH_INFO"] !~ /^\/assets/
+    request_path = env["PATH_INFO"]
+    assets_ok = request_path !~ /^\/assets/
+    paths_ok = true
+    if paths_filter = options[:paths]
+      paths_ok = request_path =~ paths_filter
+    end
+    assets_ok && paths_ok
   end
 
 end

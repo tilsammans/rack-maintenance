@@ -80,6 +80,7 @@ shared_examples "RackMaintenance" do
         rack.call({"PATH_INFO" => "/admin"})
         rack.call({"PATH_INFO" => "/users"})
         rack.call({"PATH_INFO" => "/admin/users"})
+        rack.call({"PATH_INFO" => "/stuff"})
       end
     end
   end

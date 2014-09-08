@@ -43,7 +43,7 @@ private ######################################################################
     assets_ok = request_path !~ /^\/assets/
     paths_ok = true
     if paths_filter = options[:paths]
-      paths_ok = request_path =~ paths_filter
+      paths_ok = request_path !~ paths_filter
     end
     assets_ok && paths_ok
   end

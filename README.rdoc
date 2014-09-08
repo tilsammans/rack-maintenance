@@ -35,6 +35,15 @@ maintenance page if the environment variable is set.
 
 If <tt>:env</tt> is not specified, the maintenance page will be shown if it exists.
 
+ # Leave some paths enabled while site is down
+ config.middleware.use 'Rack::Maintenance',
+   :file => Rails.root.join('public', 'maintenance.html'),
+   :paths => %r{^/admin}
+
+If <tt>:paths</tt> is specified, only the paths specified in the given regular
+expression will be put on maintenance mode. This is useful if you still want
+access to an admin interface, as shown on the example.
+
 == Note on Patches/Pull Requests
 
 * Fork the project.

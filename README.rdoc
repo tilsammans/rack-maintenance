@@ -42,10 +42,6 @@ If <tt>:env</tt> is not specified, the maintenance page will be shown if it exis
    :file => Rails.root.join('public', 'maintenance.html'),
    :without => /\A\/assets/
 
-If <tt>:paths</tt> is specified, only the paths specified in the given regular
-expression will be put on maintenance mode. This is useful if you still want
-access to an admin interface, as shown on the example.
-
 == Note on Patches/Pull Requests
 
 * Fork the project.
@@ -54,6 +50,10 @@ access to an admin interface, as shown on the example.
 * Commit, do not mess with Rakefile or VERSION (do that in a separate commit if you want a local version)
 * Push your branch.
 * Send me a pull request.
+
+== Space Babies
+
+We create internet. http://www.spacebabies.nl
 
 == License
 

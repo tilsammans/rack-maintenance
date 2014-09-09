@@ -3,7 +3,7 @@
 Rack::Maintenance is a simple Rack middleware to detect the existence of a
 maintenance page and display that instead of incoming requests.
 
-{<img src="https://secure.travis-ci.org/tilsammans/rack-maintenance.png" />}[http://travis-ci.org/tilsammans/rack-maintenance]
+{<img src="https://www.codeship.io/projects/740db0a0-1a2c-0132-42f9-66434e25f59b/status" />}[https://www.codeship.io/projects/34562]
 
 == Installation
 

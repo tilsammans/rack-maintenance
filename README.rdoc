@@ -36,9 +36,11 @@ maintenance page if the environment variable is set.
 If <tt>:env</tt> is not specified, the maintenance page will be shown if it exists.
 
  # Leave some paths enabled while site is down
+ # You'll usually want to exclude /assets if you'd like to retain CSS.
+ # It also works for allowing access to admin while the rest is in maintenance mode.
  config.middleware.use 'Rack::Maintenance',
    :file => Rails.root.join('public', 'maintenance.html'),
-   :paths => %r{^/admin}
+   :without => /\A\/assets/
 
 If <tt>:paths</tt> is specified, only the paths specified in the given regular
 expression will be put on maintenance mode. This is useful if you still want

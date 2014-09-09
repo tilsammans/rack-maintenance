@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://github.com/tilsammans/rack-maintenance"
   s.summary       = "Detect and show a maintenance page"
   s.description   = "Detect and show a maintenance page"
+  s.post_install_message = File.read("UPGRADING")
 
   s.files         = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.rdoc"]
   s.test_files    = Dir["spec/**/*"]

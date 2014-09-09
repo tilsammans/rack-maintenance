@@ -1,0 +1,14 @@
+
+******** Rack::Maintenance 2.0.0 *********
+
+Rack::Maintenance 2.0.0 has dropped the built-in filter for /assets.
+This means that all your paths will now be blocked in maintenance
+mode, unless you exclude them in the configuration.
+
+To bring back pre-2.0.0 behaviour, configure the gem like so:
+
+config.middleware.use 'Rack::Maintenance',
+  file: Rails.root.join("public", "maintenance.html"),
+  without: /\A\/assets/
+
+

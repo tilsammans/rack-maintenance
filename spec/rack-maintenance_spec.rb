@@ -4,6 +4,7 @@ require 'fileutils'
 shared_examples "RackMaintenance" do
   let(:app) { Class.new { def call(env); end }.new }
   let(:rack) { Rack::Maintenance.new(app, :file => file_name) }
+  let(:data) { data = File.read(file_name) }
 
   context "without a :file option" do
     it "raises an error" do
@@ -14,6 +15,10 @@ shared_examples "RackMaintenance" do
   end
 
   context "without maintenance file" do
+    before do
+      FileUtils.rm(file_name) if File.exists?(file_name)
+    end
+
     it "calls the app" do
       app.should_receive(:call).once
       rack.call({})
@@ -35,7 +40,7 @@ shared_examples "RackMaintenance" do
     end
 
     it "returns the maintenance response" do
-      rack.call({}).should eq [503, {"Content-Type"=>content_type, "Content-Length"=>"0"}, [""]]
+      rack.call({}).should eq [503, {"Content-Type"=>content_type, "Content-Length"=>data.bytesize.to_s}, [data]]
     end
 
     context "and :env option MAINTENANCE" do
@@ -98,3 +103,12 @@ describe "RackMaintenance with html maintenance file" do
   end
 end
 
+describe "RackMaintenance with unicode maintenance file" do
+  before do
+    FileUtils.cp 'spec/unicode.html', 'spec/maintenance.html'
+  end
+  it_behaves_like "RackMaintenance" do
+    let(:file_name) { "spec/maintenance.html" }
+    let(:content_type) { "text/html" }
+  end
+end

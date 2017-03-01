@@ -13,7 +13,8 @@ class Rack::Maintenance
 
   def call(env)
     if maintenance? && path_in_app(env)
-      data = File.read(file)
+      content = File.read(file)
+      data = processor.call(content)
       [ 503, { 'Content-Type' => content_type, 'Content-Length' => data.bytesize.to_s }, [data] ]
     else
       app.call(env)
@@ -32,6 +33,10 @@ private ######################################################################
 
   def file
     options[:file]
+  end
+
+  def processor
+    options[:processor] || lambda { |content| content }
   end
 
   def maintenance?

@@ -30,6 +30,14 @@ and then run `bundle`.
    :file => Rails.root.join('public', 'maintenance.json'),
    :env  => 'MAINTENANCE'
 
+ # You may provide an object that responds to call to provide
+ # post-processing of the maintenance page such as merging
+ # ENV values into the page through ERB
+ config.middleware.use 'Rack::Maintenance',
+   :file => Rails.root.join('public', 'maintenance.html.erb'),
+   :env  => 'MAINTENANCE',
+   :processor => lambda { |content| ERB.new(content).result }
+
 If <tt>:env</tt> is specified, all requests will be shown the
 maintenance page if the environment variable is set.
 

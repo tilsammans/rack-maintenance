@@ -66,6 +66,18 @@ shared_examples "RackMaintenance" do
           app.should_not_receive :call
           rack.call({})
         end
+
+        context "and :processor option" do
+          let(:processor) { lambda { |content| ERB.new(content).result } }
+          let(:rack) do
+            Rack::Maintenance.new(app, :file => file_name, :processor => processor )
+          end
+
+          it "passes the file content to the processor" do
+            processor.should_receive(:call).with(data).and_call_original
+            rack.call({})
+          end
+        end
       end
     end
 

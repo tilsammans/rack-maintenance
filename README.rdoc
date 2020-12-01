@@ -50,6 +50,17 @@ If <tt>:env</tt> is not specified, the maintenance page will be shown if it exis
    :file => Rails.root.join('public', 'maintenance.html'),
    :without => /\A\/assets/
 
+ # Define the paths to enable while site is down by environment variable.
+ # If :without_env is specified, the paths to enable will be pulled from the
+ # value of that environment variable.
+ #
+ # This allows you to use :without as a default, and :without_env will override
+ # it if it's available.
+ config.middleware.use 'Rack::Maintenance',
+   :file => Rails.root.join('public', 'maintenance.html'),
+   :without => /\A\/assets/
+   :without_env => 'MAINTENANCE_ALLOWED_PATHS'
+
 == Note on Patches/Pull Requests
 
 * Fork the project.

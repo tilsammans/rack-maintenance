@@ -44,7 +44,20 @@ private ######################################################################
   end
 
   def path_in_app(env)
-    env["PATH_INFO"] !~ options[:without]
+    env["PATH_INFO"] !~ without
   end
 
+  def without
+    if configurable_allowlist
+      Regexp.new(configurable_allowlist)
+    else
+      options[:without]
+    end
+  end
+
+  def configurable_allowlist
+    if options[:without_env]
+      ENV[options[:without_env]]
+    end
+  end
 end

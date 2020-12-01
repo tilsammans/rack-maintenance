@@ -93,6 +93,40 @@ shared_examples "RackMaintenance" do
         rack.call({"PATH_INFO" => "/stuff"})
       end
     end
+
+    context "and :without_env option MAINTENANCE_ALLOWED_PATHS" do
+      let(:rack) { Rack::Maintenance.new(app, :file => file_name, :without => /\A\/assets/, :without_env => "MAINTENANCE_ALLOWED_PATHS") }
+
+      context "outside WITHOUT env" do
+        it "enables access depending on the :without default value and the path" do
+          app.should_receive(:call).twice
+          rack.call({"PATH_INFO" => "/"})
+          rack.call({"PATH_INFO" => "/assets/application.css"})
+          rack.call({"PATH_INFO" => "/users"})
+          rack.call({"PATH_INFO" => "/assets/application.js"})
+          rack.call({"PATH_INFO" => "/stuff"})
+        end
+      end
+
+      context "inside WITHOUT env" do
+        before do
+          ENV["MAINTENANCE_ALLOWED_PATHS"] = "\/users"
+        end
+
+        after do
+          ENV.delete("MAINTENANCE_ALLOWED_PATHS")
+        end
+
+        it "enables access to paths specified in the env var" do
+          app.should_receive(:call).once
+          rack.call({"PATH_INFO" => "/"})
+          rack.call({"PATH_INFO" => "/assets/application.css"})
+          rack.call({"PATH_INFO" => "/users"})
+          rack.call({"PATH_INFO" => "/assets/application.js"})
+          rack.call({"PATH_INFO" => "/stuff"})
+        end
+      end
+    end
   end
 end
 
